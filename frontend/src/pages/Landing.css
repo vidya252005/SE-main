@@ -1,0 +1,132 @@
+.landing-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #E23744 0%, #FC8019 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+  }
+  
+  .landing-container {
+    width: 100%;
+    max-width: 1000px;
+  }
+  
+  .landing-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  
+  .landing-header h1 {
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  
+  .landing-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.95);
+  }
+  
+  .landing-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    justify-items: center;
+  }
+  
+  .landing-card {
+    background: white;
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  
+  .landing-card:hover {
+    transform: translateY(-10px);
+  }
+  
+  .landing-card h2 {
+    font-size: 1.8rem;
+    color: #FC8019;
+    margin-bottom: 15px;
+  }
+  
+  .landing-card p {
+    color: #FC8019;
+    margin-bottom: 30px;
+    font-size: 1rem;
+  }
+  
+  .card-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: #ff6b6b;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #ff5252;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+  }
+  
+  .btn-secondary {
+    background-color: #FC8019;
+    color: white;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #FC8019;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.4);
+  }
+  
+  @media (max-width: 768px) {
+    .landing-header h1 {
+      font-size: 2.2rem;
+    }
+  
+    .landing-subtitle {
+      font-size: 1rem;
+    }
+  
+    .landing-card {
+      padding: 40px 30px;
+    }
+  
+    .landing-cards {
+      gap: 30px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .landing-header h1 {
+      font-size: 1.8rem;
+    }
+  
+    .landing-card h2 {
+      font-size: 1.5rem;
+    }
+  }

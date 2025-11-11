@@ -1,0 +1,138 @@
+/* Login.css and Signup.css - Use the same styles for both */
+
+.login-page,
+.signup-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.login-container,
+.signup-container {
+  width: 100%;
+  max-width: 450px;
+}
+
+.login-card,
+.signup-card {
+  background: white;
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.login-card h1,
+.signup-card h1 {
+  font-size: 2.2rem;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.subtitle {
+  text-align: center;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid #ef5350;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff6b6b;
+}
+
+.form-group textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+.login-btn,
+.signup-btn {
+  width: 100%;
+  background-color: #ff6b6b;
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.login-btn:hover,
+.signup-btn:hover {
+  background-color: #ff5252;
+}
+
+.login-btn:disabled,
+.signup-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.signup-link,
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+}
+
+.signup-link a,
+.login-link a {
+  color: #ff6b6b;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.signup-link a:hover,
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .login-card,
+  .signup-card {
+    padding: 40px 30px;
+  }
+
+  .login-card h1,
+  .signup-card h1 {
+    font-size: 1.8rem;
+  }
+}
