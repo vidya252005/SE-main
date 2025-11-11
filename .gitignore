@@ -1,15 +1,51 @@
-node_modules/
-.env
-.DS_Store
-build/
-dist/
-coverage/
-.vscode/
+# Dependencies
 node_modules/
 **/node_modules/
+package-lock.json
+yarn.lock
+
+# Environment variables
 .env
-*.log
-.vscode/
-.DS_Store
-dist/
+.env.local
+.env.*.local
+
+# Build outputs
 build/
+dist/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+*.lcov
+.nyc_output/
+
+# Test results
+test-results/
+*.test.js.snap
+
+# CI/CD artifacts (keep workflow files)
+*.zip
+!deployment-package-*.zip
+
+# Lint reports
+lint-report.txt
+.eslintcache
+
+# Security reports
+security-report.json
+
+# Temporary files
+tmp/
+temp/
+*.tmp
