@@ -45,7 +45,7 @@ describe('Auth Routes - End-to-End Tests', () => {
 
       // Mock no existing user
       User.findOne = jest.fn().mockResolvedValue(null);
-      
+
       // Mock User.create to return created user
       const createdUser = {
         _id: 'user123',
@@ -69,12 +69,12 @@ describe('Auth Routes - End-to-End Tests', () => {
       expect(res.body.data.user).toHaveProperty('name', userData.name);
       expect(res.body.data.user).toHaveProperty('email', userData.email);
       expect(res.body.data.user).not.toHaveProperty('password');
-      
+
       // Verify token is valid
       const decoded = jwt.verify(res.body.token, process.env.JWT_SECRET);
       expect(decoded.id).toBe('user123');
       expect(decoded.role).toBe('user');
-      
+
       expect(User.findOne).toHaveBeenCalledWith({ email: userData.email });
       expect(User.create).toHaveBeenCalled();
     });
@@ -360,7 +360,7 @@ describe('Auth Routes - End-to-End Tests', () => {
       };
 
       Restaurant.findOne = jest.fn().mockResolvedValue(null);
-      
+
       const createdRestaurant = {
         _id: 'restaurant123',
         name: restaurantData.name,

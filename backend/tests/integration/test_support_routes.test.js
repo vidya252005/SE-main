@@ -59,7 +59,7 @@ describe('Support Routes - End-to-End Tests', () => {
       expect(res.body.ticket).toHaveProperty('issue', supportData.issue);
       expect(res.body.ticket).toHaveProperty('status', 'open');
       expect(res.body.ticket).toHaveProperty('createdAt');
-      
+
       expect(Support.create).toHaveBeenCalledWith({
         name: supportData.name,
         email: supportData.email,
@@ -447,7 +447,7 @@ describe('Support Routes - End-to-End Tests', () => {
       expect(res.body[0]).toHaveProperty('status', 'open');
       expect(res.body[1]).toHaveProperty('_id', 'support2');
       expect(res.body[1]).toHaveProperty('name', 'Jane Smith');
-      
+
       expect(Support.find).toHaveBeenCalledWith();
       expect(mockQuery.sort).toHaveBeenCalledWith({ createdAt: -1 });
     });
@@ -500,7 +500,7 @@ describe('Support Routes - End-to-End Tests', () => {
       expect(res.body[0].name).toBe('Newest');
       expect(res.body[1]._id).toBe('support2');
       expect(res.body[1].name).toBe('Oldest');
-      
+
       // Verify sort was called with correct parameter
       expect(mockQuery.sort).toHaveBeenCalledWith({ createdAt: -1 });
     });
@@ -619,7 +619,7 @@ describe('Support Routes - End-to-End Tests', () => {
       const mockTickets = [
         {
           _id: 'support1',
-          name: "O'Brien & Co.",
+          name: 'O\'Brien & Co.',
           email: 'test+special@example.com',
           issue: 'Issue with special chars: @#$%^&*()',
           status: 'open',
@@ -636,7 +636,7 @@ describe('Support Routes - End-to-End Tests', () => {
         .get('/api/support');
 
       expect(res.statusCode).toBe(200);
-      expect(res.body[0].name).toBe("O'Brien & Co.");
+      expect(res.body[0].name).toBe('O\'Brien & Co.');
       expect(res.body[0].email).toBe('test+special@example.com');
       expect(res.body[0].issue).toBe('Issue with special chars: @#$%^&*()');
     });
@@ -662,7 +662,7 @@ describe('Support Routes - End-to-End Tests', () => {
 
       const res1 = await request(app)
         .get('/api/support');
-      
+
       const res2 = await request(app)
         .get('/api/support');
 

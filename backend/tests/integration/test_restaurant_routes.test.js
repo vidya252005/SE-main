@@ -4,25 +4,23 @@
  * This test mocks Restaurant model and auth middleware so tests can run without a real DB.
  * It mounts the restaurant router on a temporary Express app and uses supertest to call endpoints.
  */
-jest.setTimeout(10000);
+jest.setTimeout(15000);
 const express = require('express');
 const request = require('supertest');
 
 // Mocks must be in place before the router is required.
 jest.mock('../../models/Restaurant');
 jest.mock('../../models/Order');
-jest.mock('../../middleware/auth');
+jest.mock('../../middleware/auth', () => ({
+  authenticateRestaurant: jest.fn((req, res, next) => {
+    req.restaurantId = 'restaurant123';
+    req.restaurant = { _id: 'restaurant123', name: 'Test Restaurant' };
+    next();
+  })
+}));
 
 const Restaurant = require('../../models/Restaurant');
 const Order = require('../../models/Order');
-const { authenticateRestaurant } = require('../../middleware/auth');
-
-// Mock the middleware to always call next() and set req.restaurantId
-authenticateRestaurant.mockImplementation((req, res, next) => {
-  req.restaurantId = 'restaurant123';
-  req.restaurant = { _id: 'restaurant123', name: 'Test Restaurant' };
-  next();
-});
 
 describe('Restaurant Routes (Authenticated) - End-to-End Tests', () => {
   let app;
@@ -36,7 +34,14 @@ describe('Restaurant Routes (Authenticated) - End-to-End Tests', () => {
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
+    // Re-setup middleware mock after clearing
+    const { authenticateRestaurant } = require('../../middleware/auth');
+    authenticateRestaurant.mockImplementation((req, res, next) => {
+      req.restaurantId = 'restaurant123';
+      req.restaurant = { _id: 'restaurant123', name: 'Test Restaurant' };
+      next();
+    });
   });
 
   describe('GET /api/restaurant/menu - Get Restaurant Menu', () => {

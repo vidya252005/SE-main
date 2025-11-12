@@ -5,7 +5,7 @@ const supportSchema = new mongoose.Schema({
   email: { type: String, required: true },
   issue: { type: String, required: true },
   status: { type: String, default: 'open' },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('Support', supportSchema);

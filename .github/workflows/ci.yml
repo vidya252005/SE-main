@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.19.0'
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       
@@ -30,7 +30,9 @@ jobs:
       
       - name: Verify build
         working-directory: ./backend
-        run: npm run start --dry-run || echo "Build verification complete"
+        run: |
+          echo "Build verification: Checking if server.js is valid..."
+          node -c server.js && echo "✅ Build verification complete"
 
   # Stage 2: Test - Run all test suites
   test:
@@ -45,7 +47,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.19.0'
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       
@@ -86,7 +88,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.19.0'
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       
@@ -131,7 +133,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.19.0'
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       
@@ -178,7 +180,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.19.0'
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
       
@@ -226,7 +228,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.19.0'
       
       - name: Download all artifacts
         uses: actions/download-artifact@v4

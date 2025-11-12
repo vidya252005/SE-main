@@ -51,10 +51,10 @@ describe('authenticateRestaurant middleware', () => {
     // jwt returns decoded id
     jwt.verify.mockReturnValue({ id: 'restaurant123' });
     // mock Restaurant.findById to return a restaurant
-    Restaurant.findById = jest.fn().mockResolvedValue({ 
-      _id: 'restaurant123', 
-      name: 'Test Restaurant', 
-      email: 'test@restaurant.com' 
+    Restaurant.findById = jest.fn().mockResolvedValue({
+      _id: 'restaurant123',
+      name: 'Test Restaurant',
+      email: 'test@restaurant.com'
     });
 
     await authenticateRestaurant(req, res, next);
@@ -68,7 +68,7 @@ describe('authenticateRestaurant middleware', () => {
     const req = { headers: { authorization: 'Bearer validtoken' } };
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
     const next = jest.fn();
-    
+
     jwt.verify.mockReturnValue({ id: 'restaurant123' });
     Restaurant.findById = jest.fn().mockResolvedValue(null);
 
@@ -117,12 +117,12 @@ describe('authenticateUser middleware', () => {
     const req = { headers: { authorization: 'Bearer validtoken' } };
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
     const next = jest.fn();
-    
+
     jwt.verify.mockReturnValue({ id: 'user123' });
-    User.findById = jest.fn().mockResolvedValue({ 
-      _id: 'user123', 
-      name: 'Test User', 
-      email: 'test@user.com' 
+    User.findById = jest.fn().mockResolvedValue({
+      _id: 'user123',
+      name: 'Test User',
+      email: 'test@user.com'
     });
 
     await authenticateUser(req, res, next);
@@ -136,7 +136,7 @@ describe('authenticateUser middleware', () => {
     const req = { headers: { authorization: 'Bearer validtoken' } };
     const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
     const next = jest.fn();
-    
+
     jwt.verify.mockReturnValue({ id: 'user123' });
     User.findById = jest.fn().mockResolvedValue(null);
 

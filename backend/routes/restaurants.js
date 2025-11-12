@@ -49,7 +49,7 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const { password, email, ...updateData } = req.body; // Don't allow password/email update here
-    
+
     const restaurant = await Restaurant.findByIdAndUpdate(
       req.params.id,
       updateData,

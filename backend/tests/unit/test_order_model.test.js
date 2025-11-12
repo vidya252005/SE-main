@@ -66,7 +66,7 @@ describe('Order model - Schema Validation', () => {
 
   test('Order accepts valid status values', () => {
     const validStatuses = ['pending', 'confirmed', 'preparing', 'out for delivery', 'delivered', 'cancelled'];
-    
+
     validStatuses.forEach(status => {
       const order = new Order({
         user: new mongoose.Types.ObjectId(),
@@ -83,7 +83,7 @@ describe('Order model - Schema Validation', () => {
 
   test('Order accepts valid paymentStatus values', () => {
     const validPaymentStatuses = ['pending', 'completed', 'failed'];
-    
+
     validPaymentStatuses.forEach(paymentStatus => {
       const order = new Order({
         user: new mongoose.Types.ObjectId(),

@@ -44,7 +44,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
 
       // Mock no existing feedback
       Feedback.findOne = jest.fn().mockResolvedValue(null);
-      
+
       // Mock Feedback.create to return created feedback
       const createdFeedback = {
         _id: 'feedback123',
@@ -73,7 +73,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
       expect(res.body).toHaveProperty('foodQuality', feedbackData.foodQuality);
       expect(res.body).toHaveProperty('deliverySpeed', feedbackData.deliverySpeed);
       expect(res.body).toHaveProperty('comment', feedbackData.comment);
-      
+
       expect(Feedback.findOne).toHaveBeenCalledWith({ order: feedbackData.orderId });
       expect(Feedback.create).toHaveBeenCalledWith({
         order: feedbackData.orderId,
@@ -95,7 +95,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
       };
 
       Feedback.findOne = jest.fn().mockResolvedValue(null);
-      
+
       const createdFeedback = {
         _id: 'feedback456',
         order: feedbackData.orderId,
@@ -129,7 +129,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
       };
 
       Feedback.findOne = jest.fn().mockResolvedValue(null);
-      
+
       const createdFeedback = {
         _id: 'feedback789',
         order: feedbackData.orderId,
@@ -518,7 +518,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
       expect(res.body).toHaveProperty('restaurant');
       expect(res.body.restaurant).toHaveProperty('name', 'Pizza Palace');
       expect(res.body).toHaveProperty('rating', 5);
-      
+
       expect(Feedback.findOne).toHaveBeenCalledWith({ order: orderId });
     });
 
@@ -628,7 +628,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
       expect(res.body[0]).toHaveProperty('rating', 5);
       expect(res.body[1]).toHaveProperty('_id', 'feedback2');
       expect(res.body[1].user).toHaveProperty('name', 'Bob');
-      
+
       expect(Feedback.find).toHaveBeenCalledWith({ restaurant: restaurantId });
     });
 
@@ -675,7 +675,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
 
       expect(res.statusCode).toBe(200);
       expect(res.body).toHaveLength(2);
-      
+
       // Verify sort was called with correct parameter
       const sortCall = mockQuery.populate().sort;
       expect(sortCall).toHaveBeenCalledWith({ createdAt: -1 });
@@ -708,7 +708,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
       expect(res.body[0].user).toHaveProperty('name');
       expect(res.body[0].user).not.toHaveProperty('email');
       expect(res.body[0].user).not.toHaveProperty('password');
-      
+
       // Verify populate was called with correct parameters
       expect(mockQuery.populate).toHaveBeenCalledWith('user', 'name');
     });
@@ -841,7 +841,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
       };
 
       Feedback.findOne = jest.fn().mockResolvedValue(null);
-      
+
       // If decimal is not allowed, it will be rejected
       Feedback.create = jest.fn().mockRejectedValue(new Error('Validation error'));
 
@@ -932,7 +932,7 @@ describe('Feedback Routes - End-to-End Tests', () => {
 
       const res1 = await request(app)
         .get(`/api/feedback/restaurant/${restaurantId}`);
-      
+
       const res2 = await request(app)
         .get(`/api/feedback/restaurant/${restaurantId}`);
 

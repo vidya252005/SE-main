@@ -8,13 +8,13 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   try {
     const { orderId, userId, restaurantId, rating, foodQuality, deliverySpeed, comment } = req.body;
-    
+
     // Check if feedback already exists for this order
     const existingFeedback = await Feedback.findOne({ order: orderId });
     if (existingFeedback) {
       return res.status(400).json({ message: 'Feedback already submitted for this order' });
     }
-    
+
     const feedback = await Feedback.create({
       order: orderId,
       user: userId,
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
       deliverySpeed,
       comment
     });
-    
+
     res.status(201).json(feedback);
   } catch (error) {
     res.status(400).json({ message: error.message });

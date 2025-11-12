@@ -23,7 +23,7 @@ process.env.JWT_SECRET = 'test-secret-key-for-jwt-tokens';
 
 describe('System tests - Complete User Workflows (mocked DB)', () => {
   let app;
-  
+
   beforeAll(() => {
     app = express();
     app.use(express.json());
@@ -50,9 +50,9 @@ describe('System tests - Complete User Workflows (mocked DB)', () => {
 
     let res = await request(app)
       .post('/api/auth/user/register')
-      .send({ 
-        name: 'John Doe', 
-        email: 'john@example.com', 
+      .send({
+        name: 'John Doe',
+        email: 'john@example.com',
         password: 'password123'
       });
 
@@ -231,7 +231,7 @@ describe('System tests - Complete User Workflows (mocked DB)', () => {
 
   test('Complete support workflow: user submits support ticket (mocked)', async () => {
     const Support = require('../../models/Support');
-    
+
     Support.create = jest.fn().mockResolvedValue({
       _id: 'support123',
       name: 'John Doe',

@@ -46,11 +46,11 @@ router.patch('/:id/status', async (req, res) => {
       { status: req.body.status },
       { new: true }
     ).populate('user restaurant');
-    
+
     if (!order) {
       return res.status(404).json({ message: 'Order not found' });
     }
-    
+
     res.json(order);
   } catch (error) {
     res.status(400).json({ message: error.message });

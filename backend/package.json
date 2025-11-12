@@ -11,8 +11,8 @@
     "test:system": "jest tests/system --runInBand --detectOpenHandles",
     "test:coverage": "jest --runInBand --detectOpenHandles --coverage --coverageDirectory=coverage --coverageReporters=html --coverageReporters=text --coverageReporters=json",
     "test:coverage:check": "jest --runInBand --detectOpenHandles --coverage --coverageDirectory=coverage --coverageReporters=html --coverageReporters=text --coverageReporters=json",
-    "lint": "eslint . --ext .js --ignore-path .gitignore",
-    "lint:fix": "eslint . --ext .js --ignore-path .gitignore --fix",
+    "lint": "eslint . --ext .js --ignore-path .eslintignore",
+    "lint:fix": "eslint . --ext .js --ignore-path .eslintignore --fix",
     "security:audit": "npm audit --audit-level=moderate",
     "security:check": "npm audit --audit-level=high"
   },
@@ -30,6 +30,7 @@
     "mongoose": "^8.19.3"
   },
   "devDependencies": {
+    "@jest/test-sequencer": "^30.2.0",
     "eslint": "^8.57.0",
     "jest": "^30.2.0",
     "nodemon": "^3.1.10",
