@@ -160,12 +160,38 @@ jobs:
       - name: Check lint score
         working-directory: ./backend
         run: |
-          ERROR_COUNT=$(npm run lint 2>&1 | grep -c "error" || echo "0")
-          if [ "$ERROR_COUNT" -gt "10" ]; then
-            echo "Lint errors exceed threshold (10 errors)"
+          echo "Running ESLint..."
+          LINT_OUTPUT=$(npm run lint 2>&1 || true)
+          echo "$LINT_OUTPUT"
+          
+          # Count errors and warnings from ESLint output
+          ERROR_COUNT=$(echo "$LINT_OUTPUT" | grep -oE "[0-9]+ error" | head -1 | grep -oE "[0-9]+" || echo "0")
+          WARNING_COUNT=$(echo "$LINT_OUTPUT" | grep -oE "[0-9]+ warning" | head -1 | grep -oE "[0-9]+" || echo "0")
+          
+          # Set defaults if empty
+          ERROR_COUNT=${ERROR_COUNT:-0}
+          WARNING_COUNT=${WARNING_COUNT:-0}
+          
+          # Calculate lint score: 10 - (errors * 1.0) - (warnings * 0.5)
+          # Using awk for floating point calculation
+          LINT_SCORE=$(awk "BEGIN {printf \"%.2f\", 10 - ($ERROR_COUNT * 1.0) - ($WARNING_COUNT * 0.5)}")
+          
+          echo ""
+          echo "=== Lint Score Calculation ==="
+          echo "Errors: $ERROR_COUNT"
+          echo "Warnings: $WARNING_COUNT"
+          echo "Lint Score: $LINT_SCORE (out of 10.0)"
+          echo "Threshold: ≥7.5"
+          echo ""
+          
+          # Check if score is above 7.5 using awk
+          SCORE_CHECK=$(awk "BEGIN {print ($LINT_SCORE >= 7.5) ? 1 : 0}")
+          if [ "$SCORE_CHECK" -eq "0" ]; then
+            echo "❌ Lint score ($LINT_SCORE) is below 7.5 threshold"
             exit 1
+          else
+            echo "✅ Lint score ($LINT_SCORE) meets threshold (≥7.5)"
           fi
-          echo "Lint check passed with $ERROR_COUNT errors"
 
   # Stage 5: Security - Vulnerability scanning
   security:

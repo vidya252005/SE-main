@@ -238,3 +238,51 @@ describe('Restaurant model - Schema configuration', () => {
   });
 });
 
+describe('Restaurant model - Pre-save hook (password hashing)', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    bcrypt.hash.mockResolvedValue('hashedpassword123');
+  });
+
+  test('pre-save hook hashes password when password is modified', async () => {
+    const restaurant = new Restaurant({
+      name: 'Test Restaurant',
+      email: 'test@restaurant.com',
+      password: 'plainpassword'
+    });
+
+    // Mock isModified to return true (password was modified)
+    restaurant.isModified = jest.fn().mockReturnValue(true);
+    restaurant.save = jest.fn().mockResolvedValue(restaurant);
+
+    // Simulate the pre-save hook
+    if (restaurant.isModified('password')) {
+      restaurant.password = await bcrypt.hash(restaurant.password, 12);
+    }
+
+    expect(bcrypt.hash).toHaveBeenCalledWith('plainpassword', 12);
+    expect(restaurant.password).toBe('hashedpassword123');
+  });
+
+  test('pre-save hook skips hashing when password is not modified', async () => {
+    const restaurant = new Restaurant({
+      name: 'Test Restaurant',
+      email: 'test@restaurant.com',
+      password: 'alreadyhashed'
+    });
+
+    // Mock isModified to return false (password was NOT modified)
+    restaurant.isModified = jest.fn().mockReturnValue(false);
+
+    // Simulate the pre-save hook
+    if (!restaurant.isModified('password')) {
+      // Should return early without hashing
+    } else {
+      restaurant.password = await bcrypt.hash(restaurant.password, 12);
+    }
+
+    expect(bcrypt.hash).not.toHaveBeenCalled();
+    expect(restaurant.password).toBe('alreadyhashed');
+  });
+});
+

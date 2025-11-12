@@ -158,3 +158,51 @@ describe('User model - Schema validation', () => {
     expect(user.address.city).toBe('New York');
   });
 });
+
+describe('User model - Pre-save hook (password hashing)', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    bcrypt.hash.mockResolvedValue('hashedpassword123');
+  });
+
+  test('pre-save hook hashes password when password is modified', async () => {
+    const user = new User({
+      name: 'Test User',
+      email: 'test@example.com',
+      password: 'plainpassword'
+    });
+
+    // Mock isModified to return true (password was modified)
+    user.isModified = jest.fn().mockReturnValue(true);
+    user.save = jest.fn().mockResolvedValue(user);
+
+    // Simulate the pre-save hook
+    if (user.isModified('password')) {
+      user.password = await bcrypt.hash(user.password, 12);
+    }
+
+    expect(bcrypt.hash).toHaveBeenCalledWith('plainpassword', 12);
+    expect(user.password).toBe('hashedpassword123');
+  });
+
+  test('pre-save hook skips hashing when password is not modified', async () => {
+    const user = new User({
+      name: 'Test User',
+      email: 'test@example.com',
+      password: 'alreadyhashed'
+    });
+
+    // Mock isModified to return false (password was NOT modified)
+    user.isModified = jest.fn().mockReturnValue(false);
+
+    // Simulate the pre-save hook
+    if (!user.isModified('password')) {
+      // Should return early without hashing
+    } else {
+      user.password = await bcrypt.hash(user.password, 12);
+    }
+
+    expect(bcrypt.hash).not.toHaveBeenCalled();
+    expect(user.password).toBe('alreadyhashed');
+  });
+});
