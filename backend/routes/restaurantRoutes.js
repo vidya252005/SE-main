@@ -159,6 +159,7 @@ router.get('/orders', async (req, res) => {
 // Update restaurant profile
 router.put('/profile', async (req, res) => {
   try {
+    // eslint-disable-next-line no-unused-vars
     const { password, email, ...updateData } = req.body;
 
     const restaurant = await Restaurant.findByIdAndUpdate(

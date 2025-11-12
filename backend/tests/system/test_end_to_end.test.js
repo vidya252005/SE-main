@@ -275,7 +275,6 @@ describe('System tests - Complete User Workflows (mocked DB)', () => {
       });
 
     expect(res.statusCode).toBe(201);
-    const restaurantToken = res.body.token;
 
     // Step 2: User Registration
     User.findOne = jest.fn().mockResolvedValue(null);
